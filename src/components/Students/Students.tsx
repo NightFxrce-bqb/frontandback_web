@@ -2,21 +2,25 @@
 
 import useStudents from '@/hooks/useStudents';
 import type StudentInterface from '@/types/StudentInterface';
+import { deleteStudentApi } from '@/api/studentsApi';
+import Student from '@/components/Students/Student/Student';
 import styles from './Students.module.scss';
 
 const Students = (): React.ReactElement => {
   const { students } = useStudents();
 
+  const onDeleteHandler = async (id: number): Promise<void> => {
+    const ok = await deleteStudentApi(id);
+    if (ok) {
+      window.location.reload();
+    }
+  };
+
   return (
     <div className={styles.Students}>
       {students.map((student: StudentInterface) => (
         <div key={student.id} className={styles.StudentCard}>
-          <div className={styles.StudentName}>
-            {student.last_name} {student.first_name}{student.middle_name ? ` ${student.middle_name}` : ''}
-          </div>
-          {student.groupId !== undefined && (
-            <div className={styles.StudentGroup}>Группа: {student.groupId}</div>
-          )}
+          <Student student={student} onDelete={onDeleteHandler} />
         </div>
       ))}
     </div>
