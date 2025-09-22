@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed:students": "node ./scripts/seed-students.js"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.87.1",

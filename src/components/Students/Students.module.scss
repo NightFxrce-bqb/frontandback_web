@@ -1,0 +1,20 @@
+.Students {
+  display: grid;
+  gap: 12px;
+}
+
+.StudentCard {
+  padding: 8px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+}
+
+.StudentName {
+  font-weight: 600;
+}
+
+.StudentGroup {
+  color: #666;
+}
+
+
