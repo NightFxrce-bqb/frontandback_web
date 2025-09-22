@@ -2,7 +2,7 @@ import { dehydrate } from '@tanstack/react-query';
 
 import TanStackQuery from '@/containers/TanStackQuery';
 import queryClient from '@/api/reactQueryClient';
-import { getGroupsApi } from '@/api/groupsApi';
+import { getGroupsDb } from '@/db/groupDb';
 import type GroupInterface from '@/types/GroupInterface';
 import Header from '@/components/layout/Header/Header';
 import Footer from '@/components/layout/Footer/Footer';
@@ -20,12 +20,11 @@ export const metadata: Metadata = {
 const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>): Promise<React.ReactElement> => {
   let groups: GroupInterface[];
 
-  // выполняется на сервере - загрузка групп
+  // выполняется на сервере - загрузка групп (напрямую из БД, без HTTP)
   await queryClient.prefetchQuery({
     queryKey: ['groups'],
     queryFn: async () => {
-      groups = await getGroupsApi();
-      console.log('Groups', groups);
+      groups = await getGroupsDb();
       return groups;
     },
   });
